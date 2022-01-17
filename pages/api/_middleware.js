@@ -15,5 +15,8 @@ export default function middleware({ nextUrl }) {
       }
     }
   }
+
+  nextUrl.searchParams.set("appended", "true");
+
   return NextResponse.rewrite(nextUrl);
 }
