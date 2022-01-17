@@ -5,11 +5,15 @@ const ALLOWED = ["allowed"];
 /**
  * @param {NextRequest} request
  */
-export default function middleware(request) {
-  for (const key of request.nextUrl.searchParams.keys()) {
-    if (!ALLOWED.includes(key)) {
-      request.nextUrl.searchParams.delete(key);
+export default function middleware({ nextUrl }) {
+  if (nextUrl.searchParams.has("clear")) {
+    nextUrl.search = "";
+  } else {
+    for (const key of nextUrl.searchParams.keys()) {
+      if (!ALLOWED.includes(key)) {
+        nextUrl.searchParams.delete(key);
+      }
     }
   }
-  return NextResponse.rewrite(request.nextUrl);
+  return NextResponse.rewrite(nextUrl);
 }
