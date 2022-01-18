@@ -7,7 +7,13 @@ const ALLOWED = ["allowed"];
  */
 export default function middleware({ nextUrl }) {
   if (nextUrl.searchParams.has("clear")) {
-    nextUrl.search = "";
+    for (const key of nextUrl.searchParams.keys()) {
+      if (!ALLOWED.includes(key)) {
+        nextUrl.searchParams.set(key, "");
+      }
+    }
+  } else if (nextUrl.searchParams.has("clear2")) {
+    return NextResponse.rewrite("/api/hello?");
   } else {
     for (const key of nextUrl.searchParams.keys()) {
       if (!ALLOWED.includes(key)) {
