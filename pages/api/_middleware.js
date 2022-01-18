@@ -7,7 +7,6 @@ const ALLOWED = ["allowed"];
  * @param {NextRequest} request
  */
 export default function middleware({ nextUrl }) {
-  nextUrl.searchParams.set("_counter", ++counter);
   if (nextUrl.searchParams.has("clear")) {
     for (const key of nextUrl.searchParams.keys()) {
       if (!ALLOWED.includes(key)) {
@@ -25,6 +24,7 @@ export default function middleware({ nextUrl }) {
   }
 
   nextUrl.searchParams.set("appended", "true");
+  nextUrl.searchParams.set("_counter", String(++counter));
 
   return NextResponse.rewrite(nextUrl);
 }
