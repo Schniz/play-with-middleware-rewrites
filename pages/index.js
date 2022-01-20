@@ -9,7 +9,7 @@ export const getServerSideProps = (context) => {
     context.res.writeHead(302, "Found", {
       Location: "/?cleared=true",
     });
-    return new Promise(() => {});
+    return {};
   }
 
   return {
