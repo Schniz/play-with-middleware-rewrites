@@ -9,7 +9,7 @@ export default function middleware({ nextUrl }) {
   let changed = false;
   for (const key of nextUrl.searchParams.keys()) {
     if (!ALLOWED.includes(key)) {
-      nextUrl.searchParams.delete(key);
+      nextUrl.searchParams.set(key, "");
       changed = true;
     }
   }
